@@ -3,6 +3,7 @@
 .vscode/
 node_modules/
 .edgeone/
+.tef_dist/
 .env
 .env.*
 work/
