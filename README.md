@@ -99,6 +99,10 @@ The ordinary static preview displays all photo controls, but it cannot complete 
 
 The ordinary `python3 -m http.server` preview does not execute EdgeOne middleware. Run the automated checks with `npm test`; use `edgeone makers dev` after linking the EdgeOne project when an end-to-end local authentication preview is needed.
 
+## Licence
+
+The project uses the [Zero-Clause BSD licence](LICENSE). You may use, copy, modify and distribute it for any purpose without an attribution requirement.
+
 The implementation follows EdgeOne's documented middleware, Edge Functions and KV APIs:
 
 - <https://pages.edgeone.ai/document/middleware>
