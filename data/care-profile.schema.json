@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Houseplant care profiles",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "commonName", "scientificName", "aliases", "category", "defaultImage", "difficulty", "identificationConfidence", "care", "sources"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+      "commonName": { "type": "string" },
+      "scientificName": { "type": "string" },
+      "aliases": {
+        "type": "array",
+        "items": { "type": "string" },
+        "uniqueItems": true
+      },
+      "category": { "type": "string" },
+      "defaultImage": { "type": "string" },
+      "difficulty": { "enum": ["Easy", "Moderate", "Fussy"] },
+      "identificationConfidence": { "enum": ["Confirmed", "High", "Medium", "Low"] },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["label", "url"],
+          "properties": {
+            "label": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          }
+        }
+      },
+      "care": {
+        "type": "object",
+        "required": ["summer", "winter", "light", "lightDli"],
+        "properties": {
+          "summer": { "$ref": "#/$defs/season" },
+          "winter": { "$ref": "#/$defs/season" },
+          "meter": { "type": "string" },
+          "light": { "type": "string" },
+          "lightDli": { "$ref": "#/$defs/dliRange" },
+          "humidity": { "type": "string" },
+          "misting": { "type": "string" },
+          "temperature": { "type": "string" },
+          "repotting": { "type": "string" },
+          "soil": { "type": "string" },
+          "petSafety": { "type": "string" },
+          "warningSigns": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "season": {
+      "type": "object",
+      "required": ["water", "feed"],
+      "properties": {
+        "water": { "type": "string" },
+        "feed": { "type": "string" }
+      }
+    },
+    "dliRange": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number", "minimum": 0 },
+        "max": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "indoor-plant-care-tracker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:photo-uploader": "esbuild photo-uploader-entry.js --bundle --format=esm --minify --outdir=vendor --entry-names=photo-uploader",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@edgeone/pages-blob": "^0.0.14",
+    "@uppy/compressor": "^3.1.0",
+    "@uppy/core": "^5.2.0",
+    "@uppy/dashboard": "^5.1.1",
+    "@uppy/image-editor": "^4.2.0",
+    "@uppy/xhr-upload": "^5.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  }
+}

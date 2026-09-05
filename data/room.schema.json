@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Room light profiles",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["name", "aspect", "window", "obstructions", "summary"],
+    "properties": {
+      "name": { "type": "string" },
+      "aspect": { "type": "string" },
+      "window": { "type": "string" },
+      "obstructions": { "type": "string" },
+      "summary": { "type": "string" }
+    },
+    "additionalProperties": false
+  }
+}

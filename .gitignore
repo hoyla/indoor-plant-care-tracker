@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+.edgeone/
+.env
+.env.*
+work/
+source_photos/
+images/*
+!images/placeholder.svg

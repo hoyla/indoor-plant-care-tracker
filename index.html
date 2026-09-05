@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#244f3a">
+  <meta name="description" content="Track individual indoor plants, care notes, future actions and photo history.">
+  <title>Indoor Plant Care Tracker</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="vendor/photo-uploader.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#plant-list">Skip to plants</a>
+  <header class="hero">
+    <div class="hero__inner">
+      <p class="eyebrow">Care guide and journal</p>
+      <h1>Indoor plant tracker</h1>
+      <p class="hero__copy">Seasonal guidance and a simple record for every plant.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="toolbar" aria-label="Plant guide controls">
+      <label class="search">
+        <span class="sr-only">Search plants</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.3-4.3m2.3-5.2a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+        <input id="search" type="search" placeholder="Search plants or rooms…" autocomplete="off">
+      </label>
+
+      <div class="season-switch" role="group" aria-label="Season">
+        <button class="season-button is-active" type="button" data-season="summer" aria-pressed="true">Summer</button>
+        <button class="season-button" type="button" data-season="winter" aria-pressed="false">Winter</button>
+      </div>
+
+      <label class="select-wrap">
+        <span class="sr-only">Filter by room</span>
+        <select id="room-filter"><option value="all">All rooms</option></select>
+      </label>
+
+      <button id="needs-check-filter" class="needs-check-filter" type="button" aria-pressed="false">Needs checking</button>
+
+      <label class="select-wrap">
+        <span class="sr-only">Filter by status</span>
+        <select id="status-filter"><option value="all">All statuses</option></select>
+      </label>
+    </section>
+
+    <section class="inventory-controls" aria-label="Plant inventory controls">
+      <p id="inventory-status" class="inventory-status" role="status" aria-live="polite">Loading inventory…</p>
+      <div class="inventory-actions">
+        <button id="browse-catalogue" class="button button--secondary" type="button">Browse care catalogue</button>
+        <button id="add-plant" class="button button--secondary" type="button" hidden>Add a plant</button>
+        <button id="manage-plants" class="button" type="button" aria-pressed="false">Manage plants</button>
+      </div>
+    </section>
+
+    <p id="results-summary" class="results-summary" aria-live="polite"></p>
+    <section id="plant-list" class="plant-grid" aria-label="Plants"></section>
+
+    <section id="empty-state" class="empty-state" hidden>
+      <div class="empty-state__icon" aria-hidden="true">⌁</div>
+      <h2>No plants added yet</h2>
+      <p>Choose <strong>Manage plants</strong> to add the first specimen.</p>
+    </section>
+
+    <aside class="meter-note" aria-label="How to use the moisture meter">
+      <strong>Using the 0–10 moisture meter</strong>
+      <span>Read at root depth in two or three places. Treat each number as a repeatable guide, then confirm with the compost and pot weight; mixes and accumulated salts can alter readings.</span>
+      <a href="https://www.rhs.org.uk/plants/types/houseplants/growing-guide" target="_blank" rel="noopener noreferrer">RHS watering guidance</a>
+    </aside>
+  </main>
+
+  <template id="plant-card-template">
+    <article class="plant-card">
+      <div class="plant-card__image-wrap">
+        <img class="plant-card__image" alt="" loading="lazy">
+        <span class="plant-card__room"></span>
+        <button class="plant-card__photos" type="button">Photo history</button>
+        <div class="plant-card__heading">
+          <div>
+            <h2 class="plant-card__name"></h2>
+            <p class="plant-card__scientific"></p>
+          </div>
+          <div class="plant-card__badges">
+            <span class="plant-card__status"></span>
+            <span class="plant-card__difficulty"></span>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card__body">
+        <button class="moisture-summary" type="button">
+          <span class="moisture-summary__score"></span>
+          <span class="moisture-summary__timing"></span>
+        </button>
+        <button class="recovery-summary" type="button" hidden>
+          <span class="recovery-summary__label"></span>
+          <span class="recovery-summary__timing"></span>
+        </button>
+        <div class="latest-card-notes" hidden>
+          <p data-latest-note="reading" hidden></p>
+          <p data-latest-note="general" hidden></p>
+        </div>
+
+        <div class="care-highlights">
+          <div class="care-item">
+            <span class="care-item__icon" aria-hidden="true">◒</span>
+            <div><span class="care-item__label">Water</span><p data-care="water"></p><p class="care-item__meter" data-care="meter"></p></div>
+          </div>
+          <div class="care-item">
+            <span class="care-item__icon" aria-hidden="true">◇</span>
+            <div><span class="care-item__label">Feed</span><p data-care="feed"></p></div>
+          </div>
+          <div class="care-item">
+            <span class="care-item__icon" aria-hidden="true">☼</span>
+            <div><span class="care-item__label">Light</span><p data-care="light"></p></div>
+          </div>
+        </div>
+
+        <details>
+          <summary>Full care guide</summary>
+          <dl class="care-details"></dl>
+        </details>
+      </div>
+    </article>
+  </template>
+
+  <dialog id="journal-dialog" class="journal-dialog" aria-labelledby="journal-heading">
+    <div class="journal-dialog__inner">
+      <header class="journal-dialog__heading">
+        <div>
+          <p class="eyebrow">Recovery log</p>
+          <h2 id="journal-heading"></h2>
+          <p id="journal-guidance"></p>
+        </div>
+        <button id="close-journal" class="dialog-close" type="button" aria-label="Close recovery log">×</button>
+      </header>
+
+      <form id="moisture-form" class="journal-form">
+        <label for="moisture-value">Current moisture</label>
+        <output id="moisture-output" class="moisture-output" for="moisture-value">5</output>
+        <input id="moisture-value" class="moisture-range" name="value" type="range" min="0" max="10" step="1" value="5">
+        <div class="moisture-scale" aria-hidden="true"><span>0 · Dry</span><span>5</span><span>10 · Wet</span></div>
+        <label for="moisture-note">Note <small>(optional)</small></label>
+        <textarea id="moisture-note" name="note" maxlength="500" rows="2" placeholder="e.g. flushed and drained today"></textarea>
+        <button class="button" type="submit">Save reading</button>
+      </form>
+
+      <form id="plant-note-form" class="journal-form journal-form--note">
+        <div class="journal-form__row">
+          <label for="plant-note-type">
+            <span>Entry type</span>
+            <select id="plant-note-type" name="type">
+              <option value="observation">Observation</option>
+              <option value="pest-check">Pest check</option>
+              <option value="treatment">Treatment</option>
+              <option value="growth">Growth</option>
+              <option value="repotting">Repotting</option>
+              <option value="future-action">Future action</option>
+              <option value="note">Other note</option>
+            </select>
+          </label>
+          <label for="plant-note-date">
+            <span id="plant-note-date-label">Date</span>
+            <input id="plant-note-date" name="eventDate" type="date" required>
+          </label>
+        </div>
+        <label id="plant-note-text-label" for="plant-note">What happened?</label>
+        <textarea id="plant-note" name="text" maxlength="500" rows="3" placeholder="What you saw or did, with enough detail to compare next time" required></textarea>
+        <div class="journal-form__actions">
+          <button id="cancel-note-edit" class="button button--secondary" type="button" hidden>Cancel edit</button>
+          <button id="save-note" class="button" type="submit">Add entry</button>
+        </div>
+      </form>
+
+      <section class="journal-history" aria-labelledby="journal-history-heading">
+        <h3 id="journal-history-heading">Recent activity</h3>
+        <p id="journal-empty">No recovery activity yet.</p>
+        <ol id="journal-list"></ol>
+      </section>
+      <p id="journal-status" class="inventory-status" role="status" aria-live="polite"></p>
+    </div>
+  </dialog>
+
+  <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="photo-heading">
+    <div class="photo-dialog__inner">
+      <header class="photo-dialog__heading">
+        <div>
+          <p class="eyebrow">Specimen photo history</p>
+          <h2 id="photo-heading"></h2>
+          <p id="photo-summary"></p>
+        </div>
+        <button id="close-photos" class="dialog-close" type="button" aria-label="Close photo history">×</button>
+      </header>
+
+      <form id="photo-form" class="photo-form">
+        <div class="photo-form__picker">
+          <button id="timeline-photo" class="button button--secondary" type="button">Choose and edit photo</button>
+          <small id="timeline-photo-status" class="photo-status" role="status" aria-live="polite"></small>
+        </div>
+        <figure id="timeline-photo-preview" class="photo-draft-preview" hidden>
+          <img id="timeline-photo-preview-image" alt="Photo waiting to be saved">
+          <figcaption>
+            <strong id="timeline-photo-preview-title"></strong>
+            <span id="timeline-photo-preview-detail"></span>
+          </figcaption>
+        </figure>
+        <div class="photo-form__row">
+          <label for="photo-captured-on">
+            <span>Photo date</span>
+            <input id="photo-captured-on" name="capturedOn" type="date" required>
+          </label>
+          <label class="photo-form__main" for="photo-use-main">
+            <input id="photo-use-main" name="useMain" type="checkbox">
+            <span>Use as current main photo</span>
+          </label>
+        </div>
+        <label for="photo-note">
+          <span>Note <small>(optional)</small></span>
+          <textarea id="photo-note" name="note" maxlength="500" rows="2" placeholder="e.g. after repotting or new frond"></textarea>
+        </label>
+        <button id="save-timeline-photo" class="button" type="submit">Save to photo library</button>
+      </form>
+
+      <p id="photo-status" class="inventory-status photo-library-status" role="status" aria-live="polite"></p>
+
+      <section class="photo-history" aria-labelledby="photo-history-heading">
+        <h3 id="photo-history-heading">Timeline</h3>
+        <p id="photo-empty">No dated photos yet.</p>
+        <ol id="photo-list"></ol>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog id="catalogue-dialog" class="catalogue-dialog">
+    <div class="catalogue-dialog__inner">
+      <header class="catalogue-dialog__heading">
+        <div>
+          <p class="eyebrow">Available care profiles</p>
+          <h2>Care catalogue</h2>
+          <p>Search the plants already covered by the guide. Familiar former names and common aliases are included.</p>
+        </div>
+        <button id="close-catalogue" class="dialog-close" type="button" aria-label="Close care catalogue">×</button>
+      </header>
+
+      <div class="catalogue-controls">
+        <label class="catalogue-search">
+          <span class="sr-only">Search care catalogue</span>
+          <input id="catalogue-search" type="search" autocomplete="off" placeholder="Search names or aliases…">
+        </label>
+        <label>
+          <span class="sr-only">Filter catalogue by category</span>
+          <select id="catalogue-category"><option value="all">All categories</option></select>
+        </label>
+      </div>
+
+      <p id="catalogue-summary" class="catalogue-summary" role="status" aria-live="polite"></p>
+      <div id="catalogue-list" class="catalogue-list"></div>
+      <p id="catalogue-empty" class="catalogue-empty" hidden>No matching care profiles. This plant may need adding to the catalogue.</p>
+    </div>
+  </dialog>
+
+  <dialog id="plant-dialog" class="plant-dialog">
+    <form id="plant-form" method="dialog">
+      <div class="dialog-heading">
+        <p class="eyebrow">Plant inventory</p>
+        <h2>Add a plant</h2>
+        <p>Search the reviewed catalogue, or add an unlisted species now and leave its care marked for research.</p>
+      </div>
+
+      <label>
+        <span>Find a care profile</span>
+        <input id="new-profile-search" type="search" autocomplete="off" placeholder="e.g. monstera, snake plant or calathea" aria-describedby="new-profile-results">
+        <small id="new-profile-results" role="status" aria-live="polite"></small>
+      </label>
+
+      <label>
+        <span>Care profile</span>
+        <select id="new-profile" name="profileId"></select>
+      </label>
+
+      <label>
+        <span>Plant name</span>
+        <input id="new-name" name="name" maxlength="100" required placeholder="e.g. Satin Pothos">
+      </label>
+
+      <label>
+        <span>Room</span>
+        <select id="new-room" name="room" required></select>
+      </label>
+
+      <label>
+        <span>Position in room <small>(optional)</small></span>
+        <input name="placement" maxlength="500" placeholder="e.g. opposite the window">
+      </label>
+
+      <label>
+        <span>Status</span>
+        <select name="status">
+          <option value="New">New</option>
+          <option value="Established">Established</option>
+          <option value="Needs attention">Needs attention</option>
+          <option value="Recovering">Recovering</option>
+          <option value="Monitoring">Monitoring</option>
+          <option value="Seasonal">Seasonal</option>
+        </select>
+      </label>
+
+      <div class="photo-picker">
+        <span class="photo-picker__label">Photo <small>(optional)</small></span>
+        <button id="new-photo" class="button button--secondary photo-picker__button" type="button" aria-describedby="new-photo-help new-photo-status">Choose and edit photo</button>
+        <small id="new-photo-help">Crop, rotate and resize a photo before its private upload.</small>
+        <small id="new-photo-status" class="photo-status" role="status" aria-live="polite"></small>
+      </div>
+
+      <p class="dialog-note">If you do not choose a photo, the care profile’s example image or a placeholder will be used. A plant with no care profile will clearly show “Care advice pending” until it has been identified and researched.</p>
+
+      <div class="dialog-actions">
+        <button id="cancel-plant" class="button button--secondary" type="button">Cancel</button>
+        <button class="button" type="submit">Add plant</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="delete-dialog" class="plant-dialog confirmation-dialog" aria-labelledby="delete-heading" aria-describedby="delete-summary delete-note">
+    <div class="confirmation-dialog__body">
+      <div class="dialog-heading">
+        <p class="eyebrow">Plant inventory</p>
+        <h2 id="delete-heading">Remove plant?</h2>
+        <p id="delete-summary"></p>
+      </div>
+
+      <p id="delete-note" class="dialog-note">This removes only this specimen from your inventory. Its reusable care profile remains available in the catalogue.</p>
+
+      <div class="dialog-actions">
+        <button id="cancel-delete" class="button button--secondary" type="button">Keep plant</button>
+        <button id="confirm-delete" class="button button--danger" type="button">Remove plant</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

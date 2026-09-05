@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Houseplant inventory",
+  "type": "object",
+  "required": ["version", "updatedAt", "plants"],
+  "properties": {
+    "version": { "const": 1 },
+    "updatedAt": { "type": ["string", "null"], "format": "date-time" },
+    "plants": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "required": ["id", "profileId", "name", "room", "placement", "image", "imageAlt", "status", "condition", "history"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 80 },
+          "profileId": { "type": ["string", "null"], "pattern": "^[a-z0-9-]+$", "maxLength": 80 },
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "room": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "placement": { "type": "string", "maxLength": 500 },
+          "image": { "type": "string", "pattern": "^(images/[a-zA-Z0-9._/-]+|/api/photos/plants/[a-z0-9-]+/[a-f0-9-]+\\.jpg)$", "maxLength": 300 },
+          "imageAlt": { "type": "string", "maxLength": 300 },
+          "photos": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "required": ["id", "url", "capturedOn", "addedAt", "note"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 80 },
+                "url": { "type": "string", "pattern": "^(images/[a-zA-Z0-9._/-]+|/api/photos/plants/[a-z0-9-]+/[a-f0-9-]+\\.jpg)$", "maxLength": 300 },
+                "capturedOn": { "type": ["string", "null"], "format": "date" },
+                "addedAt": { "type": "string", "format": "date-time" },
+                "note": { "type": "string", "maxLength": 500 }
+              },
+              "additionalProperties": false
+            }
+          },
+          "status": { "enum": ["Established", "New", "Needs attention", "Recovering", "Seasonal", "Monitoring"] },
+          "condition": { "type": "string", "maxLength": 2000 },
+          "history": { "type": "array", "maxItems": 20, "items": { "type": "string", "maxLength": 500 } },
+          "moistureReadings": {
+            "type": "array",
+            "maxItems": 30,
+            "items": {
+              "type": "object",
+              "required": ["id", "value", "checkedAt", "note"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 80 },
+                "value": { "type": "integer", "minimum": 0, "maximum": 10 },
+                "checkedAt": { "type": "string", "format": "date-time" },
+                "note": { "type": "string", "maxLength": 500 }
+              },
+              "additionalProperties": false
+            }
+          },
+          "notes": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "required": ["id", "createdAt", "text"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 80 },
+                "createdAt": { "type": "string", "format": "date-time" },
+                "updatedAt": { "type": "string", "format": "date-time" },
+                "eventDate": { "type": "string", "format": "date" },
+                "type": { "enum": ["note", "observation", "pest-check", "treatment", "growth", "repotting", "future-action"] },
+                "completedAt": { "type": "string", "format": "date-time" },
+                "text": { "type": "string", "minLength": 1, "maxLength": 500 }
+              },
+              "additionalProperties": false
+            }
+          },
+          "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

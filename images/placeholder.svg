@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Plant photo placeholder">
+  <rect width="800" height="600" fill="#dfe9dc"/>
+  <path d="M398 470c-8-123 21-236 77-336M403 399c-41-82-102-145-184-188M421 319c47-61 103-105 169-133" fill="none" stroke="#52765a" stroke-width="16" stroke-linecap="round"/>
+  <path d="M474 142c14-66 75-86 124-78-4 66-48 108-124 78ZM219 211c-55-35-109-6-137 36 49 42 112 33 137-36ZM591 185c62-20 104 21 120 69-57 28-113 3-120-69ZM398 392c-65-7-95 43-98 94 63 14 112-22 98-94Z" fill="#6f8f69"/>
+  <path d="M301 457h205l-28 91H330z" fill="#9a7153"/>
+</svg>

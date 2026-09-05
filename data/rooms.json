@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Bright room",
+    "aspect": "Example only",
+    "window": "Bright window",
+    "obstructions": "Varies",
+    "summary": "Example room with strong ambient light. Replace this description with conditions in your own home."
+  },
+  {
+    "name": "Lower-light room",
+    "aspect": "Example only",
+    "window": "Window farther from the plant",
+    "obstructions": "Varies",
+    "summary": "Example room with lower ambient light. Replace this description with conditions in your own home."
+  }
+]

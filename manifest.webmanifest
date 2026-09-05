@@ -1,0 +1,9 @@
+{
+  "name": "Indoor Plant Care Tracker",
+  "short_name": "Plant Tracker",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f2e9",
+  "theme_color": "#244f3a",
+  "icons": []
+}
