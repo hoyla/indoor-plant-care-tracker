@@ -1,5 +1,6 @@
 import { createPlantPhotoUploader } from './vendor/photo-uploader.js?v=20260904-2';
 import { comparePlantOrder } from './plant-sort.js';
+import { effectiveCheckIntervalDays } from './moisture-schedule.js';
 import {
   legacyPhotoCaptureSuggestion,
   originalPhotoForSpecimen,
@@ -96,6 +97,8 @@ const elements = {
   moistureForm: document.querySelector('#moisture-form'),
   moistureValue: document.querySelector('#moisture-value'),
   moistureOutput: document.querySelector('#moisture-output'),
+  moistureNextCheck: document.querySelector('#moisture-next-check'),
+  moistureNextCheckHelp: document.querySelector('#moisture-next-check-help'),
   moistureNote: document.querySelector('#moisture-note'),
   noteForm: document.querySelector('#plant-note-form'),
   noteInput: document.querySelector('#plant-note'),
@@ -316,7 +319,8 @@ function latestGeneralNote(specimen) {
 function dueInfo(specimen) {
   const reading = latestReading(specimen);
   const plant = plantView(specimen);
-  const days = checkIntervalDays(plant.care?.[state.season]?.water, state.season);
+  const automaticDays = checkIntervalDays(plant.care?.[state.season]?.water, state.season);
+  const days = effectiveCheckIntervalDays(reading, automaticDays);
   if (!reading) return { state: 'never', days, remaining: Number.NEGATIVE_INFINITY, text: 'Not checked yet' };
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -559,12 +563,21 @@ function renderJournal() {
   elements.journalList.hidden = activities.length === 0;
 }
 
-function openJournal(specimen) {
-  state.journalPlantId = specimen.id;
-  state.editingNoteId = null;
+function resetMoistureForm(specimen) {
   elements.moistureForm.reset();
   elements.moistureValue.value = '5';
   elements.moistureOutput.value = '5';
+  const plant = plantView(specimen);
+  const automaticDays = checkIntervalDays(plant.care?.[state.season]?.water, state.season);
+  elements.moistureNextCheck.value = String(automaticDays);
+  elements.moistureNextCheck.dataset.automaticDays = String(automaticDays);
+  elements.moistureNextCheckHelp.textContent = `Suggested automatically from the ${state.season} care guidance; change it for this reading if needed.`;
+}
+
+function openJournal(specimen) {
+  state.journalPlantId = specimen.id;
+  state.editingNoteId = null;
+  resetMoistureForm(specimen);
   resetRecoveryForm();
   elements.journalStatus.textContent = '';
   renderJournal();
@@ -1637,18 +1650,19 @@ elements.moistureForm.addEventListener('submit', async (event) => {
   const specimen = currentJournalPlant();
   if (!specimen) return;
   const previous = { moistureReadings: [...(specimen.moistureReadings || [])], notes: [...(specimen.notes || [])] };
-  specimen.moistureReadings = [...previous.moistureReadings, {
+  const nextCheckDays = Number(elements.moistureNextCheck.value);
+  const automaticDays = Number(elements.moistureNextCheck.dataset.automaticDays);
+  const reading = {
     id: activityId('reading'),
     value: Number(elements.moistureValue.value),
     checkedAt: new Date().toISOString(),
     note: elements.moistureNote.value.trim(),
-  }].slice(-30);
+    ...(nextCheckDays === automaticDays ? {} : { nextCheckDays }),
+  };
+  specimen.moistureReadings = [...previous.moistureReadings, reading].slice(-30);
   elements.journalStatus.textContent = 'Saving reading…';
   if (await saveJournalChange(specimen, previous, 'Moisture reading saved.')) {
-    elements.moistureForm.reset();
-    elements.moistureValue.value = '5';
-    elements.moistureOutput.value = '5';
-    elements.journalStatus.textContent = 'Reading saved.';
+    elements.journalDialog.close();
   }
 });
 elements.noteForm.addEventListener('submit', async (event) => {

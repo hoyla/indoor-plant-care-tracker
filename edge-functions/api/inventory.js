@@ -114,11 +114,15 @@ function normalizePlant(plant, index) {
     moistureReadings: moistureReadings.map((entry, readingIndex) => {
       if (!entry || typeof entry !== 'object' || Array.isArray(entry)) throw new Error(`Plant ${index + 1} moisture reading ${readingIndex + 1} is invalid.`);
       if (!Number.isInteger(entry.value) || entry.value < 0 || entry.value > 10) throw new Error(`Plant ${index + 1} moisture reading ${readingIndex + 1} must be from 0 to 10.`);
+      if (entry.nextCheckDays != null && (!Number.isInteger(entry.nextCheckDays) || entry.nextCheckDays < 1 || entry.nextCheckDays > 365)) {
+        throw new Error(`Plant ${index + 1} moisture reading ${readingIndex + 1} next check must be from 1 to 365 days.`);
+      }
       return {
         id: activityId(entry.id, `Plant ${index + 1} moisture reading ${readingIndex + 1} id`),
         value: entry.value,
         checkedAt: timestamp(entry.checkedAt, `Plant ${index + 1} moisture reading ${readingIndex + 1} date`),
         note: text(entry.note, `Plant ${index + 1} moisture reading ${readingIndex + 1} note`, 500),
+        ...(entry.nextCheckDays == null ? {} : { nextCheckDays: entry.nextCheckDays }),
       };
     }),
     notes: (() => {
