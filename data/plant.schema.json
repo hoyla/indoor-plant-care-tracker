@@ -49,7 +49,8 @@
                 "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 80 },
                 "value": { "type": "integer", "minimum": 0, "maximum": 10 },
                 "checkedAt": { "type": "string", "format": "date-time" },
-                "note": { "type": "string", "maxLength": 500 }
+                "note": { "type": "string", "maxLength": 500 },
+                "nextCheckDays": { "type": "integer", "minimum": 1, "maximum": 365 }
               },
               "additionalProperties": false
             }

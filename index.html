@@ -149,6 +149,12 @@
         <output id="moisture-output" class="moisture-output" for="moisture-value">5</output>
         <input id="moisture-value" class="moisture-range" name="value" type="range" min="0" max="10" step="1" value="5">
         <div class="moisture-scale" aria-hidden="true"><span>0 · Dry</span><span>5</span><span>10 · Wet</span></div>
+        <label for="moisture-next-check">Next moisture check in <small>(editable)</small></label>
+        <div class="number-with-unit">
+          <input id="moisture-next-check" name="nextCheckDays" type="number" min="1" max="365" step="1" required aria-describedby="moisture-next-check-help">
+          <span>days</span>
+        </div>
+        <small id="moisture-next-check-help" class="field-help"></small>
         <label for="moisture-note">Note <small>(optional)</small></label>
         <textarea id="moisture-note" name="note" maxlength="500" rows="2" placeholder="e.g. flushed and drained today"></textarea>
         <button class="button" type="submit">Save reading</button>

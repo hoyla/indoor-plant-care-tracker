@@ -52,6 +52,7 @@ function validInventory() {
         value: 7,
         checkedAt: '2026-07-21T10:30:00.000Z',
         note: 'Recently flushed',
+        nextCheckDays: 3,
       }],
       notes: [{
         id: 'note-1234',
@@ -90,6 +91,7 @@ test('validates and persists an inventory update', async () => {
   const saved = (await response.json()).inventory;
   assert.equal(saved.plants[0].room, 'Bright room');
   assert.equal(saved.plants[0].moistureReadings[0].value, 7);
+  assert.equal(saved.plants[0].moistureReadings[0].nextCheckDays, 3);
   assert.equal(saved.plants[0].notes[0].text, 'Feed at half strength');
   assert.equal(saved.plants[0].notes[0].type, 'future-action');
   assert.equal(saved.plants[0].notes[0].eventDate, '2026-07-27');
@@ -175,6 +177,14 @@ test('keeps old inventories compatible and validates care-log entries', () => {
   const invalidReading = validInventory();
   invalidReading.plants[0].moistureReadings[0].value = 11;
   assert.throws(() => validateInventory(invalidReading), /0 to 10/i);
+
+  const invalidNextCheck = validInventory();
+  invalidNextCheck.plants[0].moistureReadings[0].nextCheckDays = 0;
+  assert.throws(() => validateInventory(invalidNextCheck), /1 to 365 days/i);
+
+  const legacyReading = validInventory();
+  delete legacyReading.plants[0].moistureReadings[0].nextCheckDays;
+  assert.equal('nextCheckDays' in validateInventory(legacyReading).plants[0].moistureReadings[0], false);
 
   const invalidNote = validInventory();
   invalidNote.plants[0].notes[0].createdAt = 'not-a-date';
