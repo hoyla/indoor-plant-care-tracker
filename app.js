@@ -41,6 +41,19 @@ const state = {
   localPreview: ['localhost', '127.0.0.1', '::1'].includes(location.hostname),
 };
 
+function showBuildCommit() {
+  const link = document.querySelector('#build-commit');
+  if (!link) return;
+
+  const commit = String(window.__MYPLANTS_BUILD__?.commit || '').toLowerCase();
+  if (!/^[a-f0-9]{7,40}$/.test(commit)) return;
+
+  link.textContent = `Commit ${commit.slice(0, 7)}`;
+  link.href = `https://github.com/hoyla/indoor-plant-care-tracker/commit/${commit}`;
+}
+
+showBuildCommit();
+
 const elements = {
   list: document.querySelector('#plant-list'),
   empty: document.querySelector('#empty-state'),

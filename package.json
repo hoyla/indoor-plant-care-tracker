@@ -4,6 +4,7 @@
   "license": "0BSD",
   "type": "module",
   "scripts": {
+    "build": "node scripts/write-build-info.mjs",
     "build:photo-uploader": "esbuild photo-uploader-entry.js --bundle --format=esm --minify --outdir=vendor --entry-names=photo-uploader",
     "test": "node --test"
   },

@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 node_modules/
+build-info.js
 .edgeone/
 .tef_dist/
 .env
