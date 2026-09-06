@@ -44,6 +44,10 @@ h1 { max-width: 12ch; margin: 0; font-family: Georgia, "Times New Roman", serif;
 .hero__copy { max-width: 34rem; margin: 1rem 0 0; color: #e3ebe1; }
 
 main { padding: 0 1rem 5rem; }
+.site-footer { padding: 0 1rem 2rem; color: var(--muted); font-size: .7rem; text-align: center; }
+.site-footer p { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem; margin: 0; }
+.site-footer a { color: inherit; text-underline-offset: .15em; }
+.site-footer a:hover { color: var(--forest); }
 .toolbar {
   position: relative;
   z-index: 2;
