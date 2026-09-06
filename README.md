@@ -68,6 +68,7 @@ Original full-resolution photographs belong outside the repository. Both `source
 
 - The source repository can be public because it contains only generic sample records and a placeholder image. Keep real household inventory, environment configuration and photographs out of public commits.
 - Deploy the repository to EdgeOne Pages.
+- Production deployments show their exact Git commit in the page footer, making it easy to confirm which revision is live.
 - `middleware.js` protects every route at the EdgeOne edge, including HTML, JSON, photographs and other static assets.
 - `edge-functions/api/inventory.js` provides the same-origin inventory API. It is protected by the all-route middleware and rejects cross-origin updates.
 - `edge-functions/api/photos/` accepts compressed JPEG uploads over the authenticated, same-origin application route and serves them back through authenticated routes. Raw storage URLs are not saved in the inventory.
