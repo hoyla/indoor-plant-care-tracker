@@ -1499,7 +1499,7 @@ elements.add.addEventListener('click', () => {
   startNewPlantPhoto();
   elements.profileSearch.value = '';
   populateProfileOptions();
-  elements.roomInput.value = state.room !== 'all' ? state.room : 'Bright room';
+  elements.roomInput.value = state.room !== 'all' ? state.room : Object.keys(state.rooms)[0] || '';
   elements.dialog.showModal();
   elements.profileSearch.focus();
 });
