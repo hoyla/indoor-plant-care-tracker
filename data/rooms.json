@@ -1,16 +1,44 @@
 [
   {
-    "name": "Bright room",
-    "aspect": "Example only",
-    "window": "Bright window",
-    "obstructions": "Varies",
-    "summary": "Example room with strong ambient light. Replace this description with conditions in your own home."
+    "name": "Living Room",
+    "aspect": "West/southwest-facing",
+    "window": "Extensive window, approximately 4.5m wide by 1.5m tall",
+    "obstructions": "Partial tree cover",
+    "summary": "A very large west/southwest-facing window with only partial tree cover gives the room exceptional ambient light. Light is strongest close to the glass and later in the day."
   },
   {
-    "name": "Lower-light room",
-    "aspect": "Example only",
-    "window": "Window farther from the plant",
-    "obstructions": "Varies",
-    "summary": "Example room with lower ambient light. Replace this description with conditions in your own home."
+    "name": "Kitchen",
+    "aspect": "East-facing",
+    "window": "Standard clear window",
+    "obstructions": "Buildings and trees",
+    "summary": "The east-facing window is screened by buildings and trees, so it provides gentle morning and indirect light with little direct sun."
+  },
+  {
+    "name": "Bedroom",
+    "aspect": "South-facing",
+    "window": "Standard clear window",
+    "obstructions": "Tree cover",
+    "summary": "The south-facing window is filtered by tree cover. The brightest position is close to the glass, with reduced or dappled direct sun."
+  },
+  {
+    "name": "Study",
+    "aspect": "West/southwest-facing",
+    "window": "Smaller than the living-room window",
+    "obstructions": "Partial tree cover",
+    "summary": "The study shares the living room’s west/southwest aspect and partial tree cover, but its smaller window provides less total ambient light."
+  },
+  {
+    "name": "Bathroom",
+    "aspect": "East-facing",
+    "window": "Frosted window",
+    "obstructions": "Buildings and trees",
+    "summary": "The east-facing window is screened by buildings and trees, and the frosted glass diffuses it further, giving soft indirect light with very little direct sun."
+  },
+  {
+    "name": "Porch",
+    "aspect": "South-facing",
+    "window": "Aspect equivalent to the bedroom",
+    "obstructions": "Tree cover",
+    "summary": "The porch has the same south-facing, tree-filtered aspect as the bedroom, with the brightest light close to the glazing."
   }
 ]

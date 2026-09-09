@@ -1,4 +1,4 @@
-export const ROOM_ORDER = ['Bright room', 'Lower-light room'];
+export const ROOM_ORDER = ['Living Room', 'Kitchen', 'Bedroom', 'Study', 'Bathroom', 'Porch'];
 
 const collator = new Intl.Collator('en-GB', { sensitivity: 'base', numeric: true });
 
