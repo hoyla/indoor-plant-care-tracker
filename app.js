@@ -10,12 +10,24 @@ import {
   withPreservedMainPhoto,
 } from './plant-photos.js';
 
+const SEASON_STORAGE_KEY = 'plant-guide-season-v1';
+
+function loadSeason() {
+  try {
+    const saved = localStorage.getItem(SEASON_STORAGE_KEY);
+    if (saved === 'summer' || saved === 'winter') return saved;
+  } catch {
+    // Keep the switch usable when browser storage is unavailable.
+  }
+  return 'summer';
+}
+
 const state = {
   profiles: [],
   profileMap: new Map(),
   inventory: { version: 1, updatedAt: null, plants: [] },
   rooms: {},
-  season: 'summer',
+  season: loadSeason(),
   query: '',
   room: 'all',
   status: 'all',
@@ -1762,13 +1774,23 @@ elements.form.addEventListener('submit', async (event) => {
     elements.newPhoto.disabled = false;
   }
 });
+function updateSeasonButtons() {
+  elements.seasons.forEach((button) => {
+    const active = button.dataset.season === state.season;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+}
+
+updateSeasonButtons();
 elements.seasons.forEach((button) => button.addEventListener('click', () => {
   state.season = button.dataset.season;
-  elements.seasons.forEach((item) => {
-    const active = item === button;
-    item.classList.toggle('is-active', active);
-    item.setAttribute('aria-pressed', String(active));
-  });
+  try {
+    localStorage.setItem(SEASON_STORAGE_KEY, state.season);
+  } catch {
+    // The selected season still applies for this visit if saving is blocked.
+  }
+  updateSeasonButtons();
   render();
 }));
 
