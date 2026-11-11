@@ -1,6 +1,8 @@
 import { createPlantPhotoUploader } from './vendor/photo-uploader.js?v=20260904-2';
 import { comparePlantOrder } from './plant-sort.js';
 import { effectiveCheckIntervalDays } from './moisture-schedule.js';
+import { moistureVerdict } from './moisture-verdict.js';
+import { inventoryExportFilename, isNewerInventory, serializeInventory } from './inventory-export.js';
 import {
   legacyPhotoCaptureSuggestion,
   originalPhotoForSpecimen,
@@ -80,6 +82,7 @@ const elements = {
   manage: document.querySelector('#manage-plants'),
   add: document.querySelector('#add-plant'),
   browseCatalogue: document.querySelector('#browse-catalogue'),
+  exportInventory: document.querySelector('#export-inventory'),
   syncStatus: document.querySelector('#inventory-status'),
   catalogueDialog: document.querySelector('#catalogue-dialog'),
   closeCatalogue: document.querySelector('#close-catalogue'),
@@ -112,6 +115,7 @@ const elements = {
   moistureNextCheck: document.querySelector('#moisture-next-check'),
   moistureNextCheckHelp: document.querySelector('#moisture-next-check-help'),
   moistureNote: document.querySelector('#moisture-note'),
+  moistureVerdict: document.querySelector('#moisture-verdict'),
   noteForm: document.querySelector('#plant-note-form'),
   noteInput: document.querySelector('#plant-note'),
   noteType: document.querySelector('#plant-note-type'),
@@ -575,10 +579,27 @@ function renderJournal() {
   elements.journalList.hidden = activities.length === 0;
 }
 
+function updateMoistureVerdictPreview(specimen) {
+  if (!specimen) return;
+  const value = Number(elements.moistureValue.value);
+  const target = plantView(specimen).care?.meterTarget;
+  const verdict = moistureVerdict(target, [...(specimen.moistureReadings || []), { value, checkedAt: new Date().toISOString() }]);
+  elements.moistureVerdict.dataset.state = verdict.state;
+  if (verdict.state === 'unmetered') {
+    elements.moistureVerdict.replaceChildren(...(target === null ? ['The meter is not dependable for this plant; follow its meter guide.'] : []));
+    return;
+  }
+  elements.moistureVerdict.replaceChildren(
+    Object.assign(document.createElement('strong'), { textContent: `At ${value}: ${verdict.label}.` }),
+    ` ${verdict.detail}`,
+  );
+}
+
 function resetMoistureForm(specimen) {
   elements.moistureForm.reset();
   elements.moistureValue.value = '5';
   elements.moistureOutput.value = '5';
+  updateMoistureVerdictPreview(specimen);
   const plant = plantView(specimen);
   const automaticDays = checkIntervalDays(plant.care?.[state.season]?.water, state.season);
   elements.moistureNextCheck.value = String(automaticDays);
@@ -1240,7 +1261,17 @@ function makeCard(specimen) {
   moisture.dataset.due = due.state;
   moisture.querySelector('.moisture-summary__score').textContent = reading ? `Moisture ${reading.value}/10` : 'Log moisture';
   moisture.querySelector('.moisture-summary__timing').textContent = reading ? `${checkedLabel(reading.checkedAt)} · ${due.text}` : due.text;
-  moisture.setAttribute('aria-label', `${plant.commonName} recovery log. ${reading ? `Latest moisture ${reading.value} out of 10, ${checkedLabel(reading.checkedAt).toLocaleLowerCase()}. ` : ''}${due.text}.`);
+  const verdict = moistureVerdict(plant.care?.meterTarget, specimen.moistureReadings);
+  const verdictLine = moisture.querySelector('.moisture-summary__verdict');
+  const showVerdict = verdict.state !== 'unmetered';
+  verdictLine.hidden = !showVerdict;
+  moisture.dataset.verdict = reading && showVerdict ? verdict.state : '';
+  if (showVerdict) {
+    verdictLine.replaceChildren(...(reading
+      ? [Object.assign(document.createElement('strong'), { textContent: verdict.label }), ` ${verdict.detail}`]
+      : [verdict.detail]));
+  }
+  moisture.setAttribute('aria-label', `${plant.commonName} recovery log. ${reading ? `Latest moisture ${reading.value} out of 10, ${checkedLabel(reading.checkedAt).toLocaleLowerCase()}. ` : ''}${showVerdict ? `${reading ? `${verdict.label}. ` : ''}${verdict.detail} ` : ''}${due.text}.`);
   moisture.addEventListener('click', () => openJournal(specimen));
 
   const futureAction = futureActionInfo(specimen);
@@ -1496,6 +1527,41 @@ window.addEventListener('beforeunload', (event) => {
   event.preventDefault();
   event.returnValue = '';
 });
+async function latestInventoryForExport() {
+  if (!state.syncAvailable) return { inventory: state.inventory, source: 'page' };
+  const response = await fetch('/api/inventory', { headers: { Accept: 'application/json' }, cache: 'no-store', credentials: 'same-origin' });
+  if (!response.ok) throw new Error(`The synchronized inventory could not be fetched for export (${response.status}).`);
+  const payload = await response.json();
+  return payload.inventory
+    ? { inventory: payload.inventory, source: 'synchronized' }
+    : { inventory: state.inventory, source: 'page' };
+}
+
+elements.exportInventory.addEventListener('click', async () => {
+  elements.exportInventory.disabled = true;
+  setInventoryStatus('Preparing the export…');
+  try {
+    const { inventory, source } = await latestInventoryForExport();
+    const url = URL.createObjectURL(new Blob([serializeInventory(inventory)], { type: 'application/json' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = inventoryExportFilename();
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    const count = inventory.plants.length;
+    const newer = isNewerInventory(inventory, state.inventory);
+    setInventoryStatus(
+      `Exported ${count} plant${count === 1 ? '' : 's'} from ${source === 'synchronized' ? 'the synchronized copy' : 'this page'}; photo files stay in storage.${newer ? ' That copy is newer than this page: reload before editing.' : ''}`,
+      newer ? 'error' : 'saved',
+    );
+  } catch (error) {
+    setInventoryStatus(error.message, 'error');
+  } finally {
+    elements.exportInventory.disabled = false;
+  }
+});
 elements.browseCatalogue.addEventListener('click', () => {
   elements.catalogueSearch.value = '';
   elements.catalogueCategory.value = 'all';
@@ -1559,7 +1625,10 @@ elements.profileInput.addEventListener('change', () => {
   if (profile && !elements.nameInput.value.trim()) elements.nameInput.value = profile.commonName;
 });
 elements.newPhoto.addEventListener('click', () => photoUploader.open());
-elements.moistureValue.addEventListener('input', () => { elements.moistureOutput.value = elements.moistureValue.value; });
+elements.moistureValue.addEventListener('input', () => {
+  elements.moistureOutput.value = elements.moistureValue.value;
+  updateMoistureVerdictPreview(currentJournalPlant());
+});
 elements.closeJournal.addEventListener('click', () => elements.journalDialog.close());
 elements.journalDialog.addEventListener('close', () => {
   state.journalPlantId = null;

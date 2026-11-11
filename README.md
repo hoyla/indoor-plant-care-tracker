@@ -8,6 +8,35 @@ The catalogue is a practical selection, not a claimed sales ranking. Its UK care
 
 Watering sections include approximate targets for a 0–10 moisture meter. These are comparison aids rather than absolute measurements: probe at root depth in several places and confirm with compost feel and pot weight. Chunky orchid bark is explicitly excluded because a conventional soil probe is not dependable in that medium.
 
+Each profile also carries a structured `meterTarget` beside that prose so the
+tracker can interpret a logged reading rather than merely display it. Every
+number in it must already appear in the profile's meter prose, and a test
+checks that they still agree, so the reviewed text stays canonical and the
+structure follows it. The `waterAt` band, for example `[3, 4]`, is the trigger:
+a reading at or below it produces *Water now* on the plant card and under the
+slider in the recovery log, and anything above it produces *No water needed*.
+How much to give is deliberately left to the prose: a ZZ plant or jade waits for
+1–2/10 and then takes a thorough soak, so a high reading after that soak is
+correct, not a fault.
+
+The two optional bounds express the difference between a plant that likes a
+dry–wet cycle and one that must stay within a range. `dryBelow: 2` appears only
+where the prose says the plant must never dry out and names the point, written
+as "below 2/10" on the meter's own scale; a reading under it shows *Too dry*.
+`avoidAbove: 8` appears only where the prose names the wet band, "avoid
+sustained readings of 8–10" or "waterlogged (8–10)"; a single reading in the
+band shows *Wet, hold off*, and two readings three or more days apart that are
+both in the band show *Staying wet*. The three-day window is a working
+definition of "sustained", not a figure from the sources. A trigger alone
+therefore means a cycle plant (most aroids, succulents and ficus), both bounds
+mean a range plant (ferns, prayer plants, peace lily, alocasia, fittonia), and
+the catalogue currently holds 67 of the former and 22 of the latter, with a few
+profiles naming one bound only. Profiles whose prose says a soil meter is
+unreliable or not applicable (orchids in bark, mounted ferns, air plants,
+carnivorous plants in sphagnum) have `meterTarget: null`, and the tracker shows
+no verdict for them. Seasonal dormancy exceptions remain in the prose and are
+not yet modelled numerically, which is why cyclamen has no lower bound.
+
 Light sections include a daily light integral (DLI) target in mol/m²/day. DLI
 combines photosynthetically active light intensity with its duration across the
 day, making it more useful for plant growth than an instantaneous lux reading.
@@ -43,6 +72,8 @@ Then open `http://localhost:4173`.
 ## Manage plants
 
 Choose **Manage plants** in the guide to rename a specimen, link or correct its care profile, move it, add dated photos, edit its accessible main-photo description, add a new specimen, or remove an existing specimen after confirmation. Removing a specimen does not remove its reusable catalogue profile. Inventory changes and photo paths are saved to KV; uploaded photo files are saved to EdgeOne Blob. A photo can also be chosen while adding a plant. Without one, the new specimen uses its care profile’s default photo when available, otherwise `images/placeholder.svg`. When a catalogue search has exactly one result, the add-plant form selects that care profile automatically.
+
+**Export inventory** downloads the inventory record as a dated JSON file, for example `plant-inventory-2026-11-11.json`. In production it fetches the synchronized copy from KV first rather than saving whatever this tab loaded, and if that copy is newer than the page it says so, because another device has saved in the meantime and this page should be reloaded before editing. The file is the same record the Edge Function stores: every plant with its readings, recovery entries, future actions, statuses and photo entries. Photo files themselves are not included; the export lists their private `/api/photos/…` paths, and the images remain in the EdgeOne Blob store. Keep a copy somewhere outside the browser before large edits or deployments, since the synchronized record is otherwise the only copy.
 
 Each specimen has its own **Photo history**, opened from its plant card. Photos are displayed newest first with an optional note, while the existing `image` field remains the explicit current/main image for backward compatibility. The browser reads EXIF `DateTimeOriginal` from JPEG source files when available; otherwise it suggests the file-modified date, and the date always remains editable before saving. A visible preview distinguishes a selected photo from an uploaded-but-not-yet-saved photo, and closing the dialog warns before discarding either. A saved entry can be deleted in Manage mode; deleting the main upload selects a safe replacement. Replacing an undated main image first preserves it as an undated timeline entry so its link is never silently lost. Stable photo IDs, optional capture dates and added timestamps make the timeline suitable for later care-event markers and before/after selection without introducing a database.
 
