@@ -1,6 +1,7 @@
 import { createPlantPhotoUploader } from './vendor/photo-uploader.js?v=20260904-2';
 import { comparePlantOrder } from './plant-sort.js';
 import { effectiveCheckIntervalDays } from './moisture-schedule.js';
+import { inventoryExportFilename, isNewerInventory, serializeInventory } from './inventory-export.js';
 import {
   legacyPhotoCaptureSuggestion,
   originalPhotoForSpecimen,
@@ -80,6 +81,7 @@ const elements = {
   manage: document.querySelector('#manage-plants'),
   add: document.querySelector('#add-plant'),
   browseCatalogue: document.querySelector('#browse-catalogue'),
+  exportInventory: document.querySelector('#export-inventory'),
   syncStatus: document.querySelector('#inventory-status'),
   catalogueDialog: document.querySelector('#catalogue-dialog'),
   closeCatalogue: document.querySelector('#close-catalogue'),
@@ -1495,6 +1497,41 @@ window.addEventListener('beforeunload', (event) => {
   if (!hasUnsavedPlantEdits() && !hasUnsavedTimelinePhoto()) return;
   event.preventDefault();
   event.returnValue = '';
+});
+async function latestInventoryForExport() {
+  if (!state.syncAvailable) return { inventory: state.inventory, source: 'page' };
+  const response = await fetch('/api/inventory', { headers: { Accept: 'application/json' }, cache: 'no-store', credentials: 'same-origin' });
+  if (!response.ok) throw new Error(`The synchronized inventory could not be fetched for export (${response.status}).`);
+  const payload = await response.json();
+  return payload.inventory
+    ? { inventory: payload.inventory, source: 'synchronized' }
+    : { inventory: state.inventory, source: 'page' };
+}
+
+elements.exportInventory.addEventListener('click', async () => {
+  elements.exportInventory.disabled = true;
+  setInventoryStatus('Preparing the export…');
+  try {
+    const { inventory, source } = await latestInventoryForExport();
+    const url = URL.createObjectURL(new Blob([serializeInventory(inventory)], { type: 'application/json' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = inventoryExportFilename();
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    const count = inventory.plants.length;
+    const newer = isNewerInventory(inventory, state.inventory);
+    setInventoryStatus(
+      `Exported ${count} plant${count === 1 ? '' : 's'} from ${source === 'synchronized' ? 'the synchronized copy' : 'this page'}; photo files stay in storage.${newer ? ' That copy is newer than this page: reload before editing.' : ''}`,
+      newer ? 'error' : 'saved',
+    );
+  } catch (error) {
+    setInventoryStatus(error.message, 'error');
+  } finally {
+    elements.exportInventory.disabled = false;
+  }
 });
 elements.browseCatalogue.addEventListener('click', () => {
   elements.catalogueSearch.value = '';
