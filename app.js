@@ -1,6 +1,7 @@
 import { createPlantPhotoUploader } from './vendor/photo-uploader.js?v=20260904-2';
 import { comparePlantOrder } from './plant-sort.js';
 import { effectiveCheckIntervalDays } from './moisture-schedule.js';
+import { moistureVerdict } from './moisture-verdict.js';
 import { inventoryExportFilename, isNewerInventory, serializeInventory } from './inventory-export.js';
 import {
   legacyPhotoCaptureSuggestion,
@@ -114,6 +115,7 @@ const elements = {
   moistureNextCheck: document.querySelector('#moisture-next-check'),
   moistureNextCheckHelp: document.querySelector('#moisture-next-check-help'),
   moistureNote: document.querySelector('#moisture-note'),
+  moistureVerdict: document.querySelector('#moisture-verdict'),
   noteForm: document.querySelector('#plant-note-form'),
   noteInput: document.querySelector('#plant-note'),
   noteType: document.querySelector('#plant-note-type'),
@@ -577,10 +579,27 @@ function renderJournal() {
   elements.journalList.hidden = activities.length === 0;
 }
 
+function updateMoistureVerdictPreview(specimen) {
+  if (!specimen) return;
+  const value = Number(elements.moistureValue.value);
+  const target = plantView(specimen).care?.meterTarget;
+  const verdict = moistureVerdict(target, [...(specimen.moistureReadings || []), { value, checkedAt: new Date().toISOString() }]);
+  elements.moistureVerdict.dataset.state = verdict.state;
+  if (verdict.state === 'unmetered') {
+    elements.moistureVerdict.replaceChildren(...(target === null ? ['The meter is not dependable for this plant; follow its meter guide.'] : []));
+    return;
+  }
+  elements.moistureVerdict.replaceChildren(
+    Object.assign(document.createElement('strong'), { textContent: `At ${value}: ${verdict.label}.` }),
+    ` ${verdict.detail}`,
+  );
+}
+
 function resetMoistureForm(specimen) {
   elements.moistureForm.reset();
   elements.moistureValue.value = '5';
   elements.moistureOutput.value = '5';
+  updateMoistureVerdictPreview(specimen);
   const plant = plantView(specimen);
   const automaticDays = checkIntervalDays(plant.care?.[state.season]?.water, state.season);
   elements.moistureNextCheck.value = String(automaticDays);
@@ -1242,7 +1261,17 @@ function makeCard(specimen) {
   moisture.dataset.due = due.state;
   moisture.querySelector('.moisture-summary__score').textContent = reading ? `Moisture ${reading.value}/10` : 'Log moisture';
   moisture.querySelector('.moisture-summary__timing').textContent = reading ? `${checkedLabel(reading.checkedAt)} · ${due.text}` : due.text;
-  moisture.setAttribute('aria-label', `${plant.commonName} recovery log. ${reading ? `Latest moisture ${reading.value} out of 10, ${checkedLabel(reading.checkedAt).toLocaleLowerCase()}. ` : ''}${due.text}.`);
+  const verdict = moistureVerdict(plant.care?.meterTarget, specimen.moistureReadings);
+  const verdictLine = moisture.querySelector('.moisture-summary__verdict');
+  const showVerdict = verdict.state !== 'unmetered';
+  verdictLine.hidden = !showVerdict;
+  moisture.dataset.verdict = reading && showVerdict ? verdict.state : '';
+  if (showVerdict) {
+    verdictLine.replaceChildren(...(reading
+      ? [Object.assign(document.createElement('strong'), { textContent: verdict.label }), ` ${verdict.detail}`]
+      : [verdict.detail]));
+  }
+  moisture.setAttribute('aria-label', `${plant.commonName} recovery log. ${reading ? `Latest moisture ${reading.value} out of 10, ${checkedLabel(reading.checkedAt).toLocaleLowerCase()}. ` : ''}${showVerdict ? `${reading ? `${verdict.label}. ` : ''}${verdict.detail} ` : ''}${due.text}.`);
   moisture.addEventListener('click', () => openJournal(specimen));
 
   const futureAction = futureActionInfo(specimen);
@@ -1596,7 +1625,10 @@ elements.profileInput.addEventListener('change', () => {
   if (profile && !elements.nameInput.value.trim()) elements.nameInput.value = profile.commonName;
 });
 elements.newPhoto.addEventListener('click', () => photoUploader.open());
-elements.moistureValue.addEventListener('input', () => { elements.moistureOutput.value = elements.moistureValue.value; });
+elements.moistureValue.addEventListener('input', () => {
+  elements.moistureOutput.value = elements.moistureValue.value;
+  updateMoistureVerdictPreview(currentJournalPlant());
+});
 elements.closeJournal.addEventListener('click', () => elements.journalDialog.close());
 elements.journalDialog.addEventListener('close', () => {
   state.journalPlantId = null;

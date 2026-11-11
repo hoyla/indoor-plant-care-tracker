@@ -16,6 +16,7 @@
         "feed": "Pause feeding during the winter rest; resume when active growth restarts."
       },
       "meter": "Not dependable in chunky orchid bark. Use pot weight, root colour and a wooden skewer instead.",
+      "meterTarget": null,
       "light": "Bright light is important for strong canes and flowering. Place close to a bright window, with protection from harsh midday sun, and monitor whether growth remains sturdy and it reblooms.",
       "lightDli": {
         "min": 12,
@@ -62,6 +63,13 @@
         "feed": "Pause, or feed very lightly every 6–8 weeks only if it is still actively growing."
       },
       "meter": "Water around 3–4/10, after the top few centimetres feel dry; avoid leaving it at 8–10.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light is ideal, although spider plants tolerate lower light. Protect from prolonged harsh direct sun.",
       "lightDli": {
         "min": 6,
@@ -109,6 +117,12 @@
         "feed": "Usually pause until spring unless it continues strong active growth."
       },
       "meter": "Water around 3–4/10, confirming the upper 2–3cm is dry; do not aim to keep it continuously moist.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect or gently filtered light. Smaller leaves, long gaps between leaves or fading silver pattern suggest it needs more light.",
       "lightDli": {
         "min": 6,
@@ -156,7 +170,15 @@
         "water": "Check weekly and water before the rootball dries completely, while allowing free drainage.",
         "feed": "Pause, or feed very lightly only if it remains in active growth."
       },
-      "meter": "Aim to water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Aim to water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Sparse or weak new growth suggests it needs a brighter position.",
       "lightDli": {
         "min": 6,
@@ -213,6 +235,7 @@
         "feed": "Pause until spring."
       },
       "meter": "Treat the meter as unreliable in this pot: it recently read about 10 while a chopstick indicated only slight moisture below a dry upper 4cm. Use chopstick moisture, pot weight and observed drainage together instead.",
+      "meterTarget": null,
       "light": "Bright indirect light with protection from direct sun; tolerates partial shade.",
       "lightDli": {
         "min": 3,
@@ -260,6 +283,13 @@
         "feed": "Pause until active spring growth resumes."
       },
       "meter": "Water around 4–5/10; it prefers more even moisture than the Kentia but should not remain at 8–10.",
+      "meterTarget": {
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light is ideal. Protect from prolonged direct sun, especially through hot glass.",
       "lightDli": {
         "min": 6,
@@ -311,6 +341,12 @@
         "feed": "Do not feed."
       },
       "meter": "Wait for 1–2/10 in more than one spot before watering thoroughly; never keep it in the moist zone.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light to direct sun. Acclimatise gradually after a move from a dimmer position.",
       "lightDli": {
         "min": 12,
@@ -358,6 +394,12 @@
         "feed": "Do not feed."
       },
       "meter": "Wait for 1–2/10 in more than one spot before watering; thick leaves store water between checks.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Bright light with some direct sun is ideal. Weak, stretched growth indicates insufficient light.",
       "lightDli": {
         "min": 12,
@@ -405,6 +447,12 @@
         "feed": "Do not feed."
       },
       "meter": "Wait for 1–2/10 at several depths and positions before watering; the mix can remain wet below a dry surface.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Tolerates low light but grows best in bright indirect light. Very low light slows growth and compost drying.",
       "lightDli": {
         "min": 3,
@@ -452,6 +500,12 @@
         "feed": "Do not feed."
       },
       "meter": "Wait for 1–2/10 in more than one spot before soaking and draining; never keep the root zone continuously damp.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with several hours of sun. Acclimatise gradually after any move to prevent scorch.",
       "lightDli": {
         "min": 12,
@@ -498,7 +552,15 @@
         "water": "Usually grown as an annual. If overwintering indoors, reduce watering but do not let the rootball remain bone dry for long.",
         "feed": "Pause during low-light overwintering."
       },
-      "meter": "Water around 4–5/10 and keep moisture fairly even while flowering and fruiting; avoid repeated swings to 1 or sustained 8–10.",
+      "meter": "Water around 4–5/10 and keep moisture fairly even while flowering and fruiting; avoid repeated swings below 2/10 or sustained 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Full sun or the brightest available window; rotate periodically for even growth.",
       "lightDli": {
         "min": 18,
@@ -547,6 +609,12 @@
         "feed": "No winter feeding unless deliberately maintaining a plant under strong supplemental light."
       },
       "meter": "Water around 4–5/10 while actively growing and fruiting; check daily in warm sun and avoid letting it swing from very dry to saturated.",
+      "meterTarget": {
+        "waterAt": [
+          4,
+          5
+        ]
+      },
       "light": "As much direct sun as possible—ideally at least six hours. Indoor glass reduces useful light, so retain the brightest position.",
       "lightDli": {
         "min": 18,
@@ -599,6 +667,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 3,
@@ -654,6 +728,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -709,6 +789,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -764,6 +850,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 3,
@@ -819,6 +911,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -875,6 +973,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -930,6 +1034,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -984,7 +1094,15 @@
         "water": "Check every 10–14 days and water once the surface has dried slightly; do not leave the root ball bone dry.",
         "feed": "Pause or feed very lightly only while active growth continues."
       },
-      "meter": "Water around 4/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with protection from hot direct sun. Deep shade weakens growth and flowering.",
       "lightDli": {
         "min": 3,
@@ -1039,6 +1157,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 3,
@@ -1093,7 +1217,15 @@
         "water": "Check every 10–14 days and water once the surface has dried slightly; do not leave the root ball bone dry.",
         "feed": "Pause or feed very lightly only while active growth continues."
       },
-      "meter": "Water around 4/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with protection from hot direct sun. Deep shade weakens growth and flowering.",
       "lightDli": {
         "min": 6,
@@ -1148,7 +1280,15 @@
         "water": "Check every 10–14 days and water once the surface has dried slightly; do not leave the root ball bone dry.",
         "feed": "Pause or feed very lightly only while active growth continues."
       },
-      "meter": "Water around 4/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with protection from hot direct sun. Deep shade weakens growth and flowering.",
       "lightDli": {
         "min": 6,
@@ -1203,7 +1343,15 @@
         "water": "Check every 10–14 days and water once the surface has dried slightly; do not leave the root ball bone dry.",
         "feed": "Pause or feed very lightly only while active growth continues."
       },
-      "meter": "Water around 4/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with protection from hot direct sun. Deep shade weakens growth and flowering.",
       "lightDli": {
         "min": 6,
@@ -1258,7 +1406,15 @@
         "water": "Check every 10–14 days and water once the surface has dried slightly; do not leave the root ball bone dry.",
         "feed": "Pause or feed very lightly only while active growth continues."
       },
-      "meter": "Water around 4/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with protection from hot direct sun. Deep shade weakens growth and flowering.",
       "lightDli": {
         "min": 6,
@@ -1314,6 +1470,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -1368,6 +1530,12 @@
         "feed": "Pause until active growth resumes, unless strong growth continues under warm bright conditions."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; never aim to keep the root zone continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect from harsh direct sun; stretched growth or smaller leaves indicate insufficient light.",
       "lightDli": {
         "min": 6,
@@ -1423,6 +1591,12 @@
         "feed": "Pause until spring unless it remains in strong active growth."
       },
       "meter": "Water around 3/10 after checking several parts of the root ball; avoid sustained wet readings.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal; some gentle direct sun is beneficial after gradual acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -1477,6 +1651,12 @@
         "feed": "Pause until spring unless it remains in strong active growth."
       },
       "meter": "Water around 3/10 after checking several parts of the root ball; avoid sustained wet readings.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal; some gentle direct sun is beneficial after gradual acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -1531,6 +1711,12 @@
         "feed": "Pause until spring unless it remains in strong active growth."
       },
       "meter": "Water around 3/10 after checking several parts of the root ball; avoid sustained wet readings.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal; some gentle direct sun is beneficial after gradual acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -1587,6 +1773,12 @@
         "feed": "Pause until spring unless it remains in strong active growth."
       },
       "meter": "Water around 3/10 after checking several parts of the root ball; avoid sustained wet readings.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal; some gentle direct sun is beneficial after gradual acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -1641,6 +1833,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light is ideal; gentle morning or evening sun is usually beneficial after acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -1696,6 +1894,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 at several depths before watering; the centre can stay wet after the surface dries.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light gives best growth, although many tolerate lower light. Avoid sudden harsh direct sun.",
       "lightDli": {
         "min": 3,
@@ -1751,6 +1955,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 at several depths before watering; the centre can stay wet after the surface dries.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light gives best growth, although many tolerate lower light. Avoid sudden harsh direct sun.",
       "lightDli": {
         "min": 3,
@@ -1806,6 +2016,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 at several depths before watering; rhizomes are very vulnerable to persistent moisture.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Bright indirect light gives best growth, although many tolerate lower light. Avoid sudden harsh direct sun.",
       "lightDli": {
         "min": 3,
@@ -1861,6 +2077,12 @@
         "feed": "Pause until spring."
       },
       "meter": "For compost-grown plants, water around 3/10. A meter is not applicable when the plant is grown in water.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light gives best growth, although many tolerate lower light. Avoid sudden harsh direct sun.",
       "lightDli": {
         "min": 3,
@@ -1916,6 +2138,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 through most of the root ball before watering.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with several hours of direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -1970,6 +2198,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with some direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -2025,6 +2259,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3/10 after the upper 3–5cm has dried; avoid keeping braided stems or roots continuously wet.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light is ideal; gentle morning or evening sun is usually beneficial after acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -2080,6 +2320,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light is ideal; gentle morning or evening sun is usually beneficial after acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -2134,6 +2380,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Very bright indirect light with some gentle direct sun maintains colour; acclimatise to stronger sun.",
       "lightDli": {
         "min": 12,
@@ -2189,6 +2441,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light preserves strong colour; protect from harsh midday sun.",
       "lightDli": {
         "min": 6,
@@ -2243,6 +2501,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 at several depths before watering; the centre can stay wet after the surface dries.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Low to bright indirect light; avoid direct sun, which can scorch the leaves.",
       "lightDli": {
         "min": 3,
@@ -2298,6 +2562,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light with some gentle direct sun; rotate regularly for symmetrical growth.",
       "lightDli": {
         "min": 12,
@@ -2352,6 +2622,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Very bright light with several hours of direct sun after acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -2406,6 +2682,12 @@
         "feed": "Pause or feed lightly only if active growth continues."
       },
       "meter": "Water around 3–4/10, using the compost and pot weight to confirm the reading.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Very bright light with direct sun is needed for compact growth and flowering.",
       "lightDli": {
         "min": 12,
@@ -2460,6 +2742,12 @@
         "feed": "Pause or feed monthly only if strong growth continues."
       },
       "meter": "Water around 4–5/10 during active growth, avoiding sustained saturation.",
+      "meterTarget": {
+        "waterAt": [
+          4,
+          5
+        ]
+      },
       "light": "Very bright light with several hours of direct sun after gradual acclimatisation.",
       "lightDli": {
         "min": 12,
@@ -2514,6 +2802,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Water around 3–4/10 after confirming the upper compost is dry; never leave the pot standing in water.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Medium to bright indirect light; tolerates lower light better than many palms.",
       "lightDli": {
         "min": 3,
@@ -2570,6 +2864,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Water around 4/10; keep more evenly moist than a Kentia but never saturated.",
+      "meterTarget": {
+        "waterAt": [
+          4,
+          4
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect most indoor palms from prolonged hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -2624,6 +2924,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Water around 3–4/10 after confirming the upper compost is dry; never leave the pot standing in water.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light is ideal. Protect most indoor palms from prolonged hot direct sun.",
       "lightDli": {
         "min": 3,
@@ -2678,6 +2984,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Water around 3–4/10 after confirming the upper compost is dry; never leave the pot standing in water.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Very bright indirect light with some gentle direct sun.",
       "lightDli": {
         "min": 12,
@@ -2731,7 +3043,15 @@
         "water": "Check weekly and keep lightly moist while reducing the volume applied.",
         "feed": "Pause until spring."
       },
-      "meter": "Water around 4–5/10; do not let the root ball become completely dry or remain waterlogged.",
+      "meter": "Water around 4–5/10; do not let the root ball become completely dry (below 2/10) or remain waterlogged (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect or filtered light; protect delicate fronds from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -2785,7 +3105,15 @@
         "water": "Check weekly and keep lightly moist while reducing the volume applied.",
         "feed": "Pause until spring."
       },
-      "meter": "Water around 4–5/10; do not let the root ball become completely dry or remain waterlogged.",
+      "meter": "Water around 4–5/10; do not let the root ball become completely dry (below 2/10) or remain waterlogged (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect or filtered light; protect delicate fronds from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -2839,7 +3167,14 @@
         "water": "Check weekly and keep lightly moist while reducing the volume applied.",
         "feed": "Pause until spring."
       },
-      "meter": "Water around 5/10 and do not allow the fine root ball to dry completely.",
+      "meter": "Water around 5/10 and do not allow the fine root ball to dry completely (below 2/10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          5,
+          5
+        ]
+      },
       "light": "Bright indirect or filtered light; protect delicate fronds from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -2894,6 +3229,7 @@
         "feed": "Pause until spring."
       },
       "meter": "A conventional meter is unreliable in mounted sphagnum or bark. Use weight, texture and colour of the root pad.",
+      "meterTarget": null,
       "light": "Bright indirect or filtered light; protect delicate fronds from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -2947,7 +3283,15 @@
         "water": "Check weekly and keep lightly moist while reducing the volume applied.",
         "feed": "Pause until spring."
       },
-      "meter": "Water around 4–5/10; do not let the root ball become completely dry or remain waterlogged.",
+      "meter": "Water around 4–5/10; do not let the root ball become completely dry (below 2/10) or remain waterlogged (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect or filtered light; protect delicate fronds from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -3001,7 +3345,15 @@
         "water": "Check weekly and keep lightly moist while reducing the volume applied.",
         "feed": "Pause until spring."
       },
-      "meter": "Water around 4–5/10; do not let the root ball become completely dry or remain waterlogged.",
+      "meter": "Water around 4–5/10; do not let the root ball become completely dry (below 2/10) or remain waterlogged (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect or filtered light; protect delicate fronds from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -3056,7 +3408,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3110,7 +3470,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3165,7 +3533,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3220,7 +3596,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3275,7 +3659,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3331,7 +3723,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3385,7 +3785,15 @@
         "water": "Check weekly and water before the root ball dries completely, while allowing free drainage.",
         "feed": "Pause or feed very lightly only during continued active growth."
       },
-      "meter": "Water around 4–5/10, before the root ball becomes fully dry; avoid sustained readings of 8–10.",
+      "meter": "Water around 4–5/10, before the root ball becomes fully dry (below 2/10); avoid sustained readings of 8–10.",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          5
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with no harsh direct sun. Deep shade weakens markings and growth.",
       "lightDli": {
         "min": 6,
@@ -3440,6 +3848,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 before watering; fleshy leaves and stems store water.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light maintains compact growth and colour; protect from harsh direct sun.",
       "lightDli": {
         "min": 6,
@@ -3494,6 +3908,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 before watering; fleshy leaves and stems store water.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light maintains compact growth and colour; protect from harsh direct sun.",
       "lightDli": {
         "min": 6,
@@ -3548,6 +3968,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 before watering; fleshy leaves and stems store water.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light maintains compact growth and colour; protect from harsh direct sun.",
       "lightDli": {
         "min": 6,
@@ -3603,6 +4029,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for about 2–3/10 before watering; fleshy leaves and stems store water.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light maintains compact growth and colour; protect from harsh direct sun.",
       "lightDli": {
         "min": 6,
@@ -3656,7 +4088,15 @@
         "water": "Check weekly and allow the surface to dry slightly before watering.",
         "feed": "Pause or feed lightly only if it continues active growth."
       },
-      "meter": "Water around 4/10; avoid both a completely dry root ball and sustained saturation.",
+      "meter": "Water around 4/10; avoid both a completely dry root ball (below 2/10) and sustained saturation (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light preserves compact growth and leaf colour; protect from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -3710,7 +4150,15 @@
         "water": "Check weekly and allow the surface to dry slightly before watering.",
         "feed": "Pause or feed lightly only if it continues active growth."
       },
-      "meter": "Water around 4/10; avoid both a completely dry root ball and sustained saturation.",
+      "meter": "Water around 4/10; avoid both a completely dry root ball (below 2/10) and sustained saturation (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light preserves compact growth and leaf colour; protect from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -3766,6 +4214,12 @@
         "feed": "Pause or feed lightly only if strong growth continues."
       },
       "meter": "Water around 3–4/10 after checking the upper compost; avoid sustained wet readings.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light; protect decorative foliage from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -3821,6 +4275,12 @@
         "feed": "Pause or feed lightly only if strong growth continues."
       },
       "meter": "Water around 3–4/10 after checking the upper compost; avoid sustained wet readings.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light; protect decorative foliage from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -3876,6 +4336,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Water around 3/10; avoid keeping the root zone continuously moist.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light or gentle sun maintains compact growth and strong colour.",
       "lightDli": {
         "min": 12,
@@ -3930,6 +4396,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Water around 3/10; avoid keeping the root zone continuously moist.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light or gentle sun maintains compact growth and strong colour.",
       "lightDli": {
         "min": 12,
@@ -3984,7 +4456,15 @@
         "water": "Check weekly and allow the surface to dry slightly before watering.",
         "feed": "Pause or feed lightly only if it continues active growth."
       },
-      "meter": "Water around 4/10; avoid both a completely dry root ball and sustained saturation.",
+      "meter": "Water around 4/10; avoid both a completely dry root ball (below 2/10) and sustained saturation (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          4,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light with some gentle sun maintains colour; protect from scorching midday sun.",
       "lightDli": {
         "min": 12,
@@ -4040,6 +4520,12 @@
         "feed": "Pause during rest, or continue lightly only for plants still actively flowering."
       },
       "meter": "Water around 3/10 during active growth; during dormancy let the pot dry much further.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light, with gentle direct sun where tolerated, supports flowering.",
       "lightDli": {
         "min": 12,
@@ -4094,7 +4580,15 @@
         "water": "Check every 7–10 days and keep lightly moist without wetting the crown.",
         "feed": "Pause during rest, or continue lightly only for plants still actively flowering."
       },
-      "meter": "Water around 3–4/10; fine roots dislike both drought and saturation.",
+      "meter": "Water around 3–4/10; fine roots dislike both drought (below 2/10) and saturation (8–10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          3,
+          4
+        ],
+        "avoidAbove": 8
+      },
       "light": "Bright indirect light; protect soft leaves from direct sun.",
       "lightDli": {
         "min": 6,
@@ -4149,6 +4643,12 @@
         "feed": "Pause during rest, or continue lightly only for plants still actively flowering."
       },
       "meter": "Water around 3–4/10, adjusting for any species-specific rest or dormancy.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light with protection from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -4204,6 +4704,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with some direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -4258,7 +4764,14 @@
         "water": "Keep lightly moist while flowering, then reduce watering during the short rest that follows.",
         "feed": "Pause while resting and resume with new spring growth."
       },
-      "meter": "Water around 3/10, allowing the upper mix to dry without leaving the whole root ball bone dry.",
+      "meter": "Water around 3/10, allowing the upper mix to dry without leaving the whole root ball bone dry (below 2/10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light; gentle morning or winter sun is suitable.",
       "lightDli": {
         "min": 12,
@@ -4313,6 +4826,12 @@
         "feed": "Pause during rest, or continue lightly only for plants still actively flowering."
       },
       "meter": "Water around 3–4/10, adjusting for any species-specific rest or dormancy.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light and stable warmth; protect from cold transport, draughts and hot radiators.",
       "lightDli": {
         "min": 6,
@@ -4367,6 +4886,12 @@
         "feed": "Pause during rest, or continue lightly only for plants still actively flowering."
       },
       "meter": "During active growth water around 3–4/10; during dormancy allow the mix to become almost completely dry.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light in a cool position; hot rooms shorten flowering.",
       "lightDli": {
         "min": 6,
@@ -4422,6 +4947,12 @@
         "feed": "Pause during rest, or continue lightly only for plants still actively flowering."
       },
       "meter": "Water around 3–4/10, adjusting for any species-specific rest or dormancy.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          4
+        ]
+      },
       "light": "Bright indirect light; gentle morning or evening sun is suitable.",
       "lightDli": {
         "min": 12,
@@ -4476,6 +5007,7 @@
         "feed": "Reduce or pause feeding unless active roots and leaves continue growing."
       },
       "meter": "Conventional soil meters are not dependable in chunky orchid bark. Use root colour, pot weight and a wooden skewer.",
+      "meterTarget": null,
       "light": "Bright filtered light. Protect leaves from hot midday sun through glass.",
       "lightDli": {
         "min": 6,
@@ -4531,6 +5063,7 @@
         "feed": "Reduce or pause feeding unless active roots and leaves continue growing."
       },
       "meter": "A conventional meter is unreliable in orchid bark. Use bark dryness, pot weight and pseudobulb firmness.",
+      "meterTarget": null,
       "light": "Bright filtered light. Protect leaves from hot midday sun through glass.",
       "lightDli": {
         "min": 12,
@@ -4585,6 +5118,12 @@
         "feed": "Pause until spring."
       },
       "meter": "The meter applies only to the potting mix: water near 2–3/10. It cannot assess water held in the leaf rosette.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light, with protection from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -4639,6 +5178,12 @@
         "feed": "Pause until spring."
       },
       "meter": "The meter applies only to the potting mix: water near 2–3/10. It cannot assess water held in the leaf rosette.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light, with protection from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -4694,6 +5239,12 @@
         "feed": "Pause until spring."
       },
       "meter": "The meter applies only to the potting mix: water near 2–3/10. It cannot assess water held in the leaf rosette.",
+      "meterTarget": {
+        "waterAt": [
+          2,
+          3
+        ]
+      },
       "light": "Bright indirect light, with protection from hot direct sun.",
       "lightDli": {
         "min": 6,
@@ -4748,6 +5299,7 @@
         "feed": "Pause until spring."
       },
       "meter": "Not applicable: air plants are not grown in compost.",
+      "meterTarget": null,
       "light": "Bright filtered light with no prolonged hot midday sun.",
       "lightDli": {
         "min": 6,
@@ -4803,6 +5355,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Bright indirect light with some gentle direct sun maintains compact growth.",
       "lightDli": {
         "min": 12,
@@ -4857,6 +5415,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright indirect light with some gentle direct sun; protect the crown from harsh midday sun.",
       "lightDli": {
         "min": 12,
@@ -4911,6 +5475,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with some direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -4965,6 +5535,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with some direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -5020,6 +5596,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Bright indirect light with gentle morning or evening sun; harsh midday sun can redden or scorch leaves.",
       "lightDli": {
         "min": 12,
@@ -5074,6 +5656,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with some direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -5128,6 +5716,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Very bright light with some direct sun. Acclimatise gradually after a move from shade.",
       "lightDli": {
         "min": 12,
@@ -5181,7 +5775,14 @@
         "water": "Keep lightly moist while flowering, then reduce watering during the short rest that follows.",
         "feed": "Pause while resting and resume with new spring growth."
       },
-      "meter": "Water around 3/10, allowing the upper mix to dry without leaving the whole root ball bone dry.",
+      "meter": "Water around 3/10, allowing the upper mix to dry without leaving the whole root ball bone dry (below 2/10).",
+      "meterTarget": {
+        "dryBelow": 2,
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright indirect light; gentle morning or winter sun is suitable.",
       "lightDli": {
         "min": 12,
@@ -5236,6 +5837,12 @@
         "feed": "Pause until spring."
       },
       "meter": "Wait for 1–2/10 in more than one part of the pot before watering thoroughly.",
+      "meterTarget": {
+        "waterAt": [
+          1,
+          2
+        ]
+      },
       "light": "Maximum available direct sun after gradual acclimatisation.",
       "lightDli": {
         "min": 18,
@@ -5290,6 +5897,7 @@
         "feed": "Do not fertilise or feed during dormancy."
       },
       "meter": "Conventional meters are unreliable in acidic peat or sphagnum. Keep the approved carnivorous-plant medium consistently wet with low-mineral water.",
+      "meterTarget": null,
       "light": "Several hours of direct sun or extremely bright light is needed for strong growth and colour.",
       "lightDli": {
         "min": 18,
@@ -5345,6 +5953,7 @@
         "feed": "Do not fertilise the root medium."
       },
       "meter": "Meters are unreliable in sphagnum and bark. Use surface feel, pot weight and substrate colour; never let the root ball dry completely.",
+      "meterTarget": null,
       "light": "Bright filtered light. Insufficient light reduces pitcher production; hot direct sun can scorch leaves.",
       "lightDli": {
         "min": 6,
@@ -5402,6 +6011,12 @@
         "feed": "Pause until active growth resumes in spring."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; avoid sustained wet readings around the dense rosette.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright filtered light or gentle direct sun preserves compact growth and purple colouring. Acclimatise gradually and protect from harsh midday sun through glass.",
       "lightDli": {
         "min": 12,
@@ -5458,6 +6073,12 @@
         "feed": "Pause until spring unless it remains in strong active growth."
       },
       "meter": "Water around 3/10 after confirming the upper compost is dry; avoid keeping its fleshy stems continuously moist.",
+      "meterTarget": {
+        "waterAt": [
+          3,
+          3
+        ]
+      },
       "light": "Bright filtered light maintains the pink, green and white variegation. Direct hot sun may scorch the leaves, while deep shade weakens colour and growth.",
       "lightDli": {
         "min": 6,

@@ -3,6 +3,7 @@ import { access, readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 
 import { validateInventory } from '../edge-functions/api/inventory.js';
+import { formatMeterTarget } from '../moisture-verdict.js';
 
 const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 
@@ -50,6 +51,29 @@ test('care profiles retain seasonal, light and source information', async () => 
       assert.doesNotThrow(() => new URL(source.url), `${profile.id} has an invalid source URL`);
       assert.equal(new URL(source.url).protocol, 'https:', `${profile.id} has a non-HTTPS source`);
     }
+  }
+});
+
+test('every care profile carries a reviewable moisture-meter target tied to its prose', async () => {
+  const profiles = await readJson('../data/care-profiles.json');
+  for (const profile of profiles) {
+    assert.ok('meterTarget' in profile.care, `${profile.id} lacks a meterTarget decision`);
+    const target = profile.care.meterTarget;
+    if (target === null) {
+      assert.match(profile.care.meter, /not dependable|unreliable|not applicable/i, `${profile.id} has no meter target but its meter guide does not say why`);
+      continue;
+    }
+    const [low, high] = target.waterAt;
+    assert.ok(Number.isInteger(low) && Number.isInteger(high) && low >= 0 && low <= high && high <= 10, `${profile.id} has an invalid waterAt range`);
+    if ('dryBelow' in target) {
+      assert.ok(Number.isInteger(target.dryBelow) && target.dryBelow > 0 && target.dryBelow <= low, `${profile.id} has an invalid dryBelow bound`);
+      assert.ok(profile.care.meter.includes(`below ${target.dryBelow}/10`), `${profile.id} names a dry bound of ${target.dryBelow} that its meter guide does not mention`);
+    }
+    if ('avoidAbove' in target) {
+      assert.ok(Number.isInteger(target.avoidAbove) && target.avoidAbove > high && target.avoidAbove <= 10, `${profile.id} has an invalid avoidAbove threshold`);
+      assert.ok(profile.care.meter.includes(`${target.avoidAbove}–10`), `${profile.id} names a wet band of ${target.avoidAbove}+ that its meter guide does not mention`);
+    }
+    assert.ok(profile.care.meter.includes(formatMeterTarget(target)), `${profile.id} target ${formatMeterTarget(target)} does not appear in its meter guide`);
   }
 });
 
